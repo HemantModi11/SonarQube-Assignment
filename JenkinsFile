@@ -10,6 +10,12 @@ pipeline {
     }
 
     stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/HemantModi11/SonarQube-Assignment.git'
+            }
+        }
+
         stage('Clone Repository') {
             steps {
                 git 'https://github.com/HemantModi11/SonarQube-Assignment.git' // Replace with your repository URL
