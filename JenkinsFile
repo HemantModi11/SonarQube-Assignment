@@ -1,18 +1,18 @@
 pipeline {
     agent any
     tools {
-        nodejs 'nodejs-20.14.0'
+        nodejs 'nodejs-20.14.0' // Replace with the name of your Node.js installation in Jenkins
     }
 
     environment {
-        NODEJS_HOME = 'C:/Program Files/nodejs'
-        SONAR_SCANNER_PATH = 'D:/Worldline Classes/sonar-scanner-6.2.1.4610-windows-x64/bin'
-    
+        NODEJS_HOME = 'C:/Program Files/nodejs' // Path to Node.js installation
+        SONAR_SCANNER_PATH = 'D:/Worldline Classes/sonar-scanner-6.2.1.4610-windows-x64/bin' // Path to Sonar Scanner
+    }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/HemantModi11/SonarQube-Assignment.git'
+                git 'https://github.com/HemantModi11/SonarQube-Assignment.git' // Replace with your repository URL
             }
         }
 
@@ -27,12 +27,12 @@ pipeline {
 
         stage('Run SonarQube Analysis') {
             environment {
-                SONAR_TOKEN = credentials('assignment2-token')
+                SONAR_TOKEN = credentials('assignment2-token') // Replace with your SonarQube token credential ID
             }
             steps {
                 bat '''
                 set PATH=%SONAR_SCANNER_PATH%;%PATH%
-                sonar-scanner -Dsonar.projectKey=BackendProject ^ 
+                sonar-scanner -Dsonar.projectKey=SonarQubeAssignment ^ 
                     -Dsonar.sources=. ^ 
                     -Dsonar.host.url=http://192.168.29.98:9000 ^ 
                     -Dsonar.token=%SONAR_TOKEN% 2>&1
