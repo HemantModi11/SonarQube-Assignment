@@ -1,18 +1,24 @@
 pipeline {
     agent any
-
+    tools {
+        nodejs 'NodeJS_16' // Node.js version configured in Jenkins
+    }
     stages {
-        stage('Checkout Code') {
+        stage('Clone Repository') {
             steps {
-                // Checkout the code from the GitHub repository
-                git 'https://github.com/<your-username>/<your-repository>'
+                git 'https://github.com/your_username/backend-repo.git' // Replace with your GitHub repo URL
             }
         }
-
         stage('Install Dependencies') {
             steps {
-                // Install Node.js dependencies using npm
                 sh 'npm install'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') { // Name of the SonarQube configuration in Jenkins
+                    sh 'sonar-scanner'
+                }
             }
         }
     }
