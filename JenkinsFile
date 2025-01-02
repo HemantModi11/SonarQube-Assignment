@@ -32,7 +32,7 @@ pipeline {
             steps {
                 bat '''
                 set PATH=%SONAR_SCANNER_PATH%;%PATH%
-                sonar-scanner -Dsonar.projectKey=SonarQubeAssignment ^ 
+                sonar-scanner -Dsonar.projectKey=Assignment_2 ^ 
                     -Dsonar.sources=. ^ 
                     -Dsonar.host.url=http://192.168.29.98:9000 ^ 
                     -Dsonar.token=%SONAR_TOKEN% 2>&1
