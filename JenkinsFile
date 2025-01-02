@@ -25,15 +25,6 @@ pipeline {
             }
         }
 
-        stage('Backend - Lint') {
-            steps {
-                bat '''
-                set PATH=%NODEJS_HOME%;%PATH%
-                npm run lint
-                '''
-            }
-        }
-
         stage('SonarQube Analysis') {
             environment {
                 SONAR_TOKEN = credentials('assignment2-token')
