@@ -5,8 +5,8 @@ pipeline {
     }
 
     environment {
-        NODEJS_HOME = 'C:/Program Files/nodejs' // Path to Node.js installation
-        SONAR_SCANNER_PATH = 'D:/Worldline Classes/sonar-scanner-6.2.1.4610-windows-x64/bin' // Path to Sonar Scanner
+        NODEJS_HOME = 'C:/Program Files/nodejs'
+        SONAR_SCANNER_PATH = 'D:/Worldline Classes/sonar-scanner-6.2.1.4610-windows-x64/bin'
     }
 
     stages {
@@ -18,7 +18,7 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/HemantModi11/SonarQube-Assignment.git' // Replace with your repository URL
+                git 'https://github.com/HemantModi11/SonarQube-Assignment.git'
             }
         }
 
