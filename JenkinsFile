@@ -1,12 +1,12 @@
 pipeline {
     agent any
     tools {
-        nodejs 'NodeJS_16' // Node.js version configured in Jenkins
+        nodejs 'NodeJS_20'
     }
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/your_username/backend-repo.git' // Replace with your GitHub repo URL
+                git 'https://github.com/HemantModi11/SonarQube-Assignment.git'
             }
         }
         stage('Install Dependencies') {
