@@ -1,25 +1,55 @@
 pipeline {
     agent any
     tools {
-        nodejs 'NodeJS_20'
+        nodejs 'nodejs-20.14.0'
     }
+
+    environment {
+        NODEJS_HOME = 'C:/Program Files/nodejs'
+        SONAR_SCANNER_PATH = 'D:/Worldline Classes/sonar-scanner-6.2.1.4610-windows-x64/bin'
+    
+
     stages {
         stage('Clone Repository') {
             steps {
                 git 'https://github.com/HemantModi11/SonarQube-Assignment.git'
             }
         }
+
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat '''
+                set PATH=%NODEJS_HOME%;%PATH%
+                npm install
+                '''
             }
         }
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') { // Name of the SonarQube configuration in Jenkins
-                    sh 'sonar-scanner'
-                }
+
+        stage('Run SonarQube Analysis') {
+            environment {
+                SONAR_TOKEN = credentials('assignment2-token')
             }
+            steps {
+                bat '''
+                set PATH=%SONAR_SCANNER_PATH%;%PATH%
+                sonar-scanner -Dsonar.projectKey=BackendProject ^ 
+                    -Dsonar.sources=. ^ 
+                    -Dsonar.host.url=http://192.168.29.98:9000 ^ 
+                    -Dsonar.token=%SONAR_TOKEN% 2>&1
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed. Check logs for details.'
+        }
+        always {
+            echo 'Pipeline execution finished.'
         }
     }
 }
