@@ -1,0 +1,1 @@
+This repository is a very basic demonstration of Javascript code analysis using SonarQube and Jenkins pipeline.
